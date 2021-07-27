@@ -1,5 +1,5 @@
 const express = require("express");
-const fs = require("fs");
+const cors = require("cors");
 const Datastore = require("nedb")
 const multer = require("multer");
 const path = require("path");
@@ -7,6 +7,14 @@ const app = express();
 
 
 app.use(express.json())
+app.options("*", cors());
+app.use(cors());
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+);
 
 let storage = multer.diskStorage({
   destination: "./uploads",
@@ -58,6 +66,7 @@ app.post("/uploadImage/", upload.single("image"), (req, res) => {
   try {
     res.status(200).json({ msg: `successfully uploaded`, img_url:`${HOST}/${req.file.path}` });
   } catch (err) {
+
     res.json({ err: err.message });
   }
 });
@@ -86,10 +95,16 @@ app.get("/getMetaData/:id", async (req, res)=>{
   try {
        
     database.find({id: req.params.id}, function (err, docs) {
-      // docs contains Omicron Persei 8
+      
       res.json(docs)
     })
   } catch (error) {
     res.json(error)
   }
 })
+
+
+
+// console.log(`imgBuffer`, imgBuffer)
+// document.getElementById("my-img").src = URL.createObjectURL(
+//   new Blob([imgBuffer.buffer], { type: "image/png" } 
