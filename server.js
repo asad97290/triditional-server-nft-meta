@@ -80,11 +80,12 @@ app.get("/uploads/:id", (req, res) => {
 });
 
 
-app.post("/api/metaData/", async (req, res) => {
+app.post("/api/metaData/:id", async (req, res) => {
 try {
   let data = req.body
+  let id = req.params.id
   database.insert(data)
-  res.json({msg:"success",url:`${HOST}/getMetaData/${data.id}`})
+  res.json({msg:"success",url:`${HOST}/getMetaData/${id}`})
 } catch (error) {
   res.json(error)
 }
