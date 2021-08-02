@@ -1,8 +1,9 @@
 node_modules/*
 build/*
 .env
-build/
-contracts/
-migrations/
+build/*
+client/*
+contracts/*
+migrations/*
 test
 truffle-config.js
