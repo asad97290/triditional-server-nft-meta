@@ -83,6 +83,7 @@ app.get("/uploads/:id", (req, res) => {
 app.post("/api/metaData/", async (req, res) => {
 try {
   let data = req.body.data
+  console.log(`data`, data)
   let id = req.body.id
   database.insert(data)
   res.json({msg:"success",url:`${HOST}/getMetaData/${id}`})
