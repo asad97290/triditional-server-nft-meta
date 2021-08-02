@@ -80,7 +80,7 @@ app.get("/uploads/:id", (req, res) => {
 });
 
 
-app.post("/api/metaData/:id", async (req, res) => {
+app.post("/api/metaData/", async (req, res) => {
 try {
   let data = req.body.data
   let id = req.body.id
