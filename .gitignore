@@ -1,8 +1,3 @@
 node_modules/*
 build/*
 .env
-client/
-contracts/
-migrations/
-test/
-truffle-config.js
