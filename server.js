@@ -97,7 +97,7 @@ app.get("/getMetaData/:id", async (req, res)=>{
        
     database.find({id: req.params.id}, function (err, docs) {
       
-      res.json(docs)
+      res.json(docs[0])
     })
   } catch (error) {
     res.json(error)
