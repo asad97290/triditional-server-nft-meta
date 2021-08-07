@@ -6,3 +6,5 @@ contracts
 migrations
 test
 truffle-config.js
+database.db
+uploads
