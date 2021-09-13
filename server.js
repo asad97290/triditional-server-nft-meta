@@ -29,6 +29,10 @@ let storage = multer.diskStorage({
 
 let database = new Datastore("database.db")
 database.loadDatabase();
+
+
+
+
 // Check File Type
 function checkFileType(file, cb) {
   // Allowed ext
@@ -102,10 +106,11 @@ app.get("/getMetaData/:id", async (req, res)=>{
   } catch (error) {
     res.json(error)
   }
-})
+})  
 
 
 
 // console.log(`imgBuffer`, imgBuffer)
 // document.getElementById("my-img").src = URL.createObjectURL(
 //   new Blob([imgBuffer.buffer], { type: "image/png" } 
+// ))
