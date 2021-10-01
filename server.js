@@ -3,6 +3,7 @@ const cors = require("cors");
 const Datastore = require("nedb")
 const multer = require("multer");
 const path = require("path");
+const connectDB = require("./config/db");
 const app = express();
 
 
@@ -15,6 +16,7 @@ app.use(
     extended: false,
   })
 );
+connectDB();
 
 let storage = multer.diskStorage({
   destination: "./uploads",
