@@ -3,7 +3,6 @@ const cors = require("cors");
 const Datastore = require("nedb")
 const multer = require("multer");
 const path = require("path");
-const connectDB = require("./config/db");
 const app = express();
 
 
@@ -16,7 +15,7 @@ app.use(
     extended: false,
   })
 );
-connectDB();
+
 
 let storage = multer.diskStorage({
   destination: "./uploads",
@@ -61,14 +60,13 @@ let upload = multer({
   },
 });
 
-
-
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || `http://localhost:${PORT}`;
 app.listen(PORT, () => console.log(`server running on port ${PORT} on host ${HOST}`));
 
 
-app.post("/uploadImage/", upload.single("image"), (req, res) => {
+
+app.post("/api/uploadImage/", upload.single("image"), (req, res) => {
   try {
     res.status(200).json({ msg: `successfully uploaded`, img_url:`${HOST}/${req.file.path}` });
   } catch (err) {
@@ -77,7 +75,7 @@ app.post("/uploadImage/", upload.single("image"), (req, res) => {
   }
 });
 
-app.get("/uploads/:id", (req, res) => {
+app.get("/api/uploads/:id", (req, res) => {
   try {
     res.status(200).sendFile(path.join(__dirname, '/uploads/', req.params.id))
   } catch (err) {
@@ -98,7 +96,7 @@ try {
 })
 
 
-app.get("/getMetaData/:id", async (req, res)=>{
+app.get("/api/getMetaData/:id", async (req, res)=>{
   try {
        
     database.find({id: req.params.id}, function (err, docs) {

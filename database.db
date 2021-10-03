@@ -1,0 +1,8 @@
+{
+    "name":"52J",
+    "id":"0",
+    "image":"localhost:5000/api/uploads/1633260673404.gif",
+    "description":"mirindaWeb software house ",
+    "attributes":[{"trait_type":"Area","value":"1 kanal"},{"trait_type":"Location","value":"Gulbarg 3, Lahore"},{"trait_type":"Country","value":"Pakistan"},{"trait_type":"Rarity","value":1}],
+    "_id":"jmqXR1FCMGyNeYOm"
+}
