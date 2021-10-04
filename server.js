@@ -1,12 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const Datastore = require("nedb")
+const Datastore = require("nedb");
 const multer = require("multer");
 const path = require("path");
 const app = express();
 
-
-app.use(express.json())
+app.use(express.json());
 app.options("*", cors());
 app.use(cors());
 app.use(express.json());
@@ -15,7 +14,6 @@ app.use(
     extended: false,
   })
 );
-
 
 let storage = multer.diskStorage({
   destination: "./uploads",
@@ -27,12 +25,8 @@ let storage = multer.diskStorage({
   },
 });
 
-
-let database = new Datastore("database.db")
+let database = new Datastore("database.db");
 database.loadDatabase();
-
-
-
 
 // Check File Type
 function checkFileType(file, cb) {
@@ -62,55 +56,53 @@ let upload = multer({
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || `http://localhost:${PORT}`;
-app.listen(PORT, () => console.log(`server running on port ${PORT} on host ${HOST}`));
-
-
+app.listen(PORT, () =>
+  console.log(`server running on port ${PORT} on host ${HOST}`)
+);
 
 app.post("/api/uploadImage/", upload.single("image"), (req, res) => {
   try {
-    res.status(200).json({ msg: `successfully uploaded`, img_url:`${HOST}/${req.file.path}` });
+    res
+      .status(200)
+      .json({
+        msg: `successfully uploaded`,
+        img_url: `${HOST}/${req.file.path}`,
+      });
   } catch (err) {
-
     res.json({ err: err.message });
   }
 });
 
 app.get("/api/uploads/:id", (req, res) => {
   try {
-    res.status(200).sendFile(path.join(__dirname, '/uploads/', req.params.id))
+    res.status(200).sendFile(path.join(__dirname, "/uploads/", req.params.id));
   } catch (err) {
     res.json({ err: err.message });
   }
 });
 
-
 app.post("/api/metaData/", async (req, res) => {
-try {
-  let data = req.body
-  console.log(`data`, data)
-  database.insert(data)
-  res.json({msg:"success",url:`${HOST}/getMetaData/${data.id}`})
-} catch (error) {
-  res.json(error)
-}
-})
-
-
-app.get("/api/getMetaData/:id", async (req, res)=>{
   try {
-       
-    database.find({id: req.params.id}, function (err, docs) {
-      
-      res.json(docs[0])
-    })
+    let data = req.body;
+    console.log(`data`, data);
+    database.insert(data);
+    res.json({ msg: "success", url: `${HOST}/getMetaData/${data.id}` });
   } catch (error) {
-    res.json(error)
+    res.json(error);
   }
-})  
+});
 
-
+app.get("/api/getMetaData/:id", async (req, res) => {
+  try {
+    database.find({ id: req.params.id }, function (err, docs) {
+      res.json(docs[0]);
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 // console.log(`imgBuffer`, imgBuffer)
 // document.getElementById("my-img").src = URL.createObjectURL(
-//   new Blob([imgBuffer.buffer], { type: "image/png" } 
+//   new Blob([imgBuffer.buffer], { type: "image/png" }
 // ))
