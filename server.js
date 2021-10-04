@@ -86,7 +86,7 @@ app.post("/api/metaData/", async (req, res) => {
     let data = req.body;
     console.log(`data`, data);
     database.insert(data);
-    res.json({ msg: "success", url: `${HOST}/getMetaData/${data.id}` });
+    res.json({ msg: "success", url: `${HOST}/api/getMetaData/${data.id}` });
   } catch (error) {
     res.json(error);
   }
