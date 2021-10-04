@@ -66,7 +66,7 @@ app.post("/api/uploadImage/", upload.single("image"), (req, res) => {
       .status(200)
       .json({
         msg: `successfully uploaded`,
-        img_url: `${HOST}/${req.file.path}`,
+        img_url: `${HOST}/api/${req.file.path}`,
       });
   } catch (err) {
     res.json({ err: err.message });
@@ -75,7 +75,7 @@ app.post("/api/uploadImage/", upload.single("image"), (req, res) => {
 
 app.get("/api/uploads/:id", (req, res) => {
   try {
-    res.status(200).sendFile(path.join(__dirname, "/api/uploads/", req.params.id));
+    res.status(200).sendFile(path.join(__dirname, "/uploads/", req.params.id));
   } catch (err) {
     res.json({ err: err.message });
   }
